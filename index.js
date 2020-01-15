@@ -1,7 +1,7 @@
 'use strict';
 
-function getDogImage() {
-  fetch('https://dog.ceo/api/breeds/image/random/3')
+function getDogImage(userInput) {
+  fetch(`https://dog.ceo/api/breeds/image/random/${userInput}`)
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
@@ -14,9 +14,9 @@ function displayResults(responseJson) {
   //$('.results-img').replaceWith(
   //  `<img src="${responseJson.message}" class="results-img">`
   //)
-    for (let i= 0; i<responseJson.message.length; i++) {
-        $('.results').append(`<img src="${responseJson.message[i]}">`);
-    }
+  for (let i= 0; i<responseJson.message.length; i++) {
+    $('.results').append(`<img src="${responseJson.message[i]}">`);
+  }
 
   //display the results section
   $('.results').removeClass('hidden');
@@ -25,7 +25,8 @@ function displayResults(responseJson) {
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    getDogImage();
+    const userInput = $('input[type=text]').val();
+    getDogImage(userInput);
   });
 }
 
